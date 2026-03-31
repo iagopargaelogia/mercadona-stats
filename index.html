@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mdona — Social Stats PT</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#008C45;
+  --green-dark:#006B34;
+  --green-light:#e8f5ee;
+  --green-mid:#c8e6d4;
+  --bg:#f5f5f3;
+  --surface:#ffffff;
+  --border:#e2e2de;
+  --text:#1a1a1a;
+  --muted:#777;
+  --muted2:#b0b0aa;
+  --radius:8px;
+}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:3px solid var(--green);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.logo-wrap{display:flex;align-items:center;gap:12px;}
+.logo-m{width:42px;height:42px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;letter-spacing:-1px;font-family:'Nunito Sans',sans-serif;}
+.logo-text{font-size:17px;font-weight:900;color:var(--green);letter-spacing:-0.3px;line-height:1.1;}
+.logo-sub{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:0.07em;text-transform:uppercase;}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.platform-pill{background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:800;padding:5px 14px;border-radius:99px;letter-spacing:0.04em;border:1px solid var(--green-mid);}
+.refresh-btn{background:var(--green);color:#fff;border:none;border-radius:var(--radius);padding:9px 18px;font-size:12px;font-weight:800;font-family:'Nunito Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background 0.15s;letter-spacing:0.03em;text-transform:uppercase;}
+.refresh-btn:hover{background:var(--green-dark);}
+.refresh-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.spin{display:inline-block;}
+.spinning{animation:spin 1s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* PAGE BANNER */
+.page-banner{background:var(--green);padding:1.5rem 2rem;display:flex;align-items:flex-end;justify-content:space-between;}
+.page-title{font-size:24px;font-weight:900;color:#fff;letter-spacing:-0.4px;line-height:1.1;}
+.page-title-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;}
+.page-meta{font-size:11px;color:rgba(255,255,255,0.5);font-weight:700;text-align:right;}
+
+/* CONTENT */
+.content{padding:1.75rem 2rem;max-width:1200px;margin:0 auto;}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.section-label::before{content:'';display:block;width:3px;height:14px;background:var(--green);border-radius:2px;}
+
+/* FILTERS */
+.filters-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.5rem;display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.filter-group{display:flex;align-items:center;gap:8px;}
+.filter-label{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;}
+select{background:var(--bg);border:1.5px solid var(--border);color:var(--text);border-radius:6px;padding:7px 30px 7px 10px;font-size:12px;font-family:'Nunito Sans',sans-serif;font-weight:700;outline:none;cursor:pointer;transition:border-color 0.15s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;background-color:var(--bg);}
+select:focus{border-color:var(--green);}
+.filter-div{width:1px;height:22px;background:var(--border);}
+.reset-link{font-size:11px;color:var(--green);font-weight:800;cursor:pointer;margin-left:auto;text-decoration:none;letter-spacing:0.03em;}
+.reset-link:hover{text-decoration:underline;}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:1.75rem;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;border-top:3px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.kpi-card.c0{border-top-color:var(--green);}
+.kpi-card.c1{border-top-color:#2e7d32;}
+.kpi-card.c2{border-top-color:#43a047;}
+.kpi-card.c3{border-top-color:#66bb6a;}
+.kpi-card.c4{border-top-color:#a5d6a7;}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;font-weight:800;}
+.kpi-value{font-size:27px;font-weight:900;color:var(--text);line-height:1;letter-spacing:-0.5px;}
+.kpi-card.c0 .kpi-value{color:var(--green);}
+.kpi-sub{font-size:11px;color:var(--muted2);margin-top:5px;font-weight:600;}
+
+/* CHART */
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.chart-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:1.25rem;}
+
+/* MONTHLY STRIP */
+.monthly-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:1.75rem;scrollbar-width:none;}
+.monthly-scroll::-webkit-scrollbar{display:none;}
+.month-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:0.9rem 1.1rem;min-width:156px;flex-shrink:0;transition:border-color 0.15s,box-shadow 0.15s;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.month-card:hover{border-color:var(--green);box-shadow:0 2px 8px rgba(0,140,69,0.12);}
+.month-name{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;font-weight:800;}
+.month-imp{font-size:21px;font-weight:900;color:var(--text);letter-spacing:-0.3px;}
+.month-sub{font-size:11px;color:var(--muted2);margin-top:3px;font-weight:600;}
+.month-bar{margin-top:9px;height:4px;background:var(--green-mid);border-radius:99px;overflow:hidden;}
+.month-bar-fill{height:4px;background:var(--green);border-radius:99px;}
+
+/* TABLE */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.table-top{padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:#fafaf8;}
+.table-title{font-size:14px;font-weight:900;color:var(--text);}
+.table-title em{color:var(--green);font-style:normal;}
+.sort-wrap{display:flex;align-items:center;gap:8px;}
+.sort-label{font-size:11px;color:var(--muted);font-weight:700;}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);background:#fafaf8;white-space:nowrap;}
+thead th.th-num{text-align:right;}
+thead th.th-sorted{color:var(--green);}
+tbody tr{border-bottom:1px solid #f0f0ec;transition:background 0.1s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#f8fdf9;}
+td{padding:10px 14px;font-size:13px;vertical-align:middle;}
+td.td-rank{width:44px;text-align:center;font-size:18px;font-weight:900;color:var(--muted2);}
+tr:nth-child(1) td.td-rank{color:var(--green);}
+tr:nth-child(2) td.td-rank{color:#2e7d32;}
+tr:nth-child(3) td.td-rank{color:#66bb6a;}
+td.td-pub{max-width:260px;}
+td.td-pub a{color:var(--text);text-decoration:none;font-weight:800;font-size:13px;}
+td.td-pub a:hover{color:var(--green);}
+td.td-pub .no-link{font-weight:800;}
+td.td-pub .pub-meta{font-size:10px;color:var(--muted);margin-top:2px;font-weight:700;}
+td.td-num{text-align:right;font-size:13px;font-weight:800;letter-spacing:-0.2px;}
+td.td-num.hl{color:var(--green);}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;font-weight:800;letter-spacing:0.03em;}
+.b-depto{background:var(--green-light);color:var(--green-dark);}
+.b-prom{background:#fff8e1;color:#e65100;border:1px solid #ffe082;}
+
+/* STATES */
+.loading-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
+.dots{display:inline-flex;gap:6px;margin-bottom:10px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:bounce 1.2s infinite;}
+.dot:nth-child(2){animation-delay:0.15s;}
+.dot:nth-child(3){animation-delay:0.3s;}
+@keyframes bounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+.loading-state p{font-size:12px;font-weight:700;}
+.error-state{text-align:center;padding:2.5rem;color:#c62828;font-size:13px;font-weight:700;}
+
+/* FOOTER */
+.footer{background:var(--green);padding:1.25rem 2rem;text-align:center;margin-top:2.5rem;}
+.footer p{font-size:11px;color:rgba(255,255,255,0.55);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;}
+.footer p span{color:#fff;}
+
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .content{padding:1rem;}
+  .header,.page-banner{padding-left:1rem;padding-right:1rem;}
+}
+@media(max-width:600px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .kpi-grid .kpi-card:last-child{grid-column:span 2;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-wrap">
+    <div class="logo-m">M</div>
+    <div>
+      <div class="logo-text">Mdona Stats</div>
+      <div class="logo-sub">Social Media · Portugal</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span class="platform-pill">📘 Facebook</span>
+    <button class="refresh-btn" id="refresh-btn" onclick="loadData()">
+      <span class="spin" id="spin-icon">↻</span> Actualizar
+    </button>
+  </div>
+</div>
+
+<div class="page-banner">
+  <div>
+    <div class="page-title">Panel de Publicaciones</div>
+    <div class="page-title-sub">Estadísticas Facebook · PT 2025–2026</div>
+  </div>
+  <div class="page-meta" id="updated-tag">—</div>
+</div>
+
+<div class="content">
+
+  <div class="filters-bar">
+    <div class="filter-group">
+      <span class="filter-label">Mes</span>
+      <select id="filter-mes" onchange="applyFilters()"><option value="">Todos</option></select>
+    </div>
+    <div class="filter-div"></div>
+    <div class="filter-group">
+      <span class="filter-label">Departamento</span>
+      <select id="filter-depto" onchange="applyFilters()"><option value="">Todos</option></select>
+    </div>
+    <div class="filter-div"></div>
+    <div class="filter-group">
+      <span class="filter-label">Tipo</span>
+      <select id="filter-prom" onchange="applyFilters()">
+        <option value="">Todas</option>
+        <option value="Si">Promocionadas</option>
+        <option value="No">Orgánicas</option>
+      </select>
+    </div>
+    <a class="reset-link" onclick="resetFilters()">↺ Limpiar</a>
+  </div>
+
+  <div class="section-label">Resumen · selección actual</div>
+  <div class="kpi-grid" id="kpi-grid">
+    <div style="grid-column:span 5" class="loading-state">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <p>Conectando con Google Sheets…</p>
+    </div>
+  </div>
+
+  <div class="section-label">Evolución mensual · impresiones y alcance</div>
+  <div class="chart-card">
+    <div class="chart-title">Rendimiento por mes</div>
+    <div style="position:relative;height:230px;"><canvas id="monthChart"></canvas></div>
+  </div>
+
+  <div class="section-label">Cifras totales por mes</div>
+  <div class="monthly-scroll" id="monthly-grid"></div>
+
+  <div class="section-label">Top publicaciones · ordenable por métrica</div>
+  <div class="table-wrap">
+    <div class="table-top">
+      <div class="table-title">Top <em>10</em> publicaciones</div>
+      <div class="sort-wrap">
+        <span class="sort-label">Ordenar por</span>
+        <select id="sort-metric" onchange="applyFilters()">
+          <option value="impresiones">Impresiones</option>
+          <option value="alcance">Alcance</option>
+          <option value="interacciones">Interacciones</option>
+          <option value="megusta">Me Gusta</option>
+          <option value="comentarios">Comentarios</option>
+          <option value="compartidos">Compartidos</option>
+          <option value="clics_web">Clics web</option>
+          <option value="thruplay">Thruplay</option>
+          <option value="tasa_interaccion">Tasa Interacción %</option>
+          <option value="tasa_alcance">Tasa Alcance %</option>
+        </select>
+      </div>
+    </div>
+    <div id="table-container">
+      <div class="loading-state"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer"><p>Mdona<span> · </span>Social Stats PT<span> · </span>Datos en tiempo real desde Google Sheets</p></div>
+
+<script>
+const WEBHOOK_URL = 'https://n8n-test.vikolab.com/webhook/2477d9ab-7640-4602-84e3-709a9ab4b9c9';
+const MES_ORDER = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+let rawData=[], filteredData=[], monthChart=null;
+
+async function loadData(){
+  const btn=document.getElementById('refresh-btn'), spin=document.getElementById('spin-icon');
+  btn.disabled=true; spin.classList.add('spinning');
+  setLoading();
+  try{
+    const res=await fetch(WEBHOOK_URL);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json=await res.json();
+    rawData=normalize(Array.isArray(json)?json:[json]);
+    populateFilters();
+    applyFilters();
+    document.getElementById('updated-tag').textContent='Actualizado '+new Date().toLocaleString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  }catch(e){
+    showErr('Error al conectar con n8n. Verifica que el workflow esté activo.<br><small>'+e.message+'</small>');
+  }finally{
+    btn.disabled=false; spin.classList.remove('spinning');
+  }
+}
+
+function setLoading(){
+  const d=`<div class="loading-state"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><p>Cargando…</p></div>`;
+  document.getElementById('kpi-grid').innerHTML=`<div style="grid-column:span 5">${d}</div>`;
+  document.getElementById('table-container').innerHTML=d;
+  document.getElementById('monthly-grid').innerHTML='';
+}
+function showErr(m){
+  const e=`<div class="error-state">⚠️ ${m}</div>`;
+  document.getElementById('kpi-grid').innerHTML=`<div style="grid-column:span 5">${e}</div>`;
+  document.getElementById('table-container').innerHTML=e;
+}
+
+function normalize(rows){
+  return rows.map(r=>{
+    const g=(...ks)=>{for(const k of ks){if(r[k]!=null&&r[k]!=='')return r[k];}return null;};
+    const n=v=>{const f=parseFloat(v);return isNaN(f)?0:f;};
+    const s=(...ks)=>{const v=g(...ks);return v!=null?String(v).trim():'';};
+    const mes=s('Mes'); const mesN=mes?mes.charAt(0).toUpperCase()+mes.slice(1).toLowerCase():'';
+    return{
+      titulo:s('Publicaciones','Publicación'),enlace:s('Enlace'),mes:mesN,
+      anio:n(g('Año','Ano')),departamento:s('Publicador','Creador'),tema:s('Tema'),
+      impresiones:n(g('Impresiones')),alcance:n(g('Alcance')),interacciones:n(g('Interacciones')),
+      megusta:n(g('Me Gusta','Me gusta','Reacciones')),comentarios:n(g('Comentarios')),
+      compartidos:n(g('Compartir','Compartidos')),
+      clics_web:n(g('Clics a la web ','Clics web','Clics a la web','Clics')),
+      thruplay:n(g('Thruplay')),tasa_interaccion:n(g('Tasa Interacción','Tasa Interaccion')),
+      tasa_alcance:n(g('Tasa Alcance')),promocionada:s('Promocionada'),
+    };
+  }).filter(r=>r.titulo&&r.titulo!=='0'&&r.titulo!=='undefined');
+}
+
+function populateFilters(){
+  const meses=[...new Set(rawData.map(r=>r.mes).filter(m=>MES_ORDER.includes(m)))].sort((a,b)=>MES_ORDER.indexOf(a)-MES_ORDER.indexOf(b));
+  const deptos=[...new Set(rawData.map(r=>r.departamento).filter(Boolean))].sort();
+  const fill=(id,opts)=>{const el=document.getElementById(id),cur=el.value;el.innerHTML=el.options[0].outerHTML+opts.map(o=>`<option value="${o}">${o}</option>`).join('');if(opts.includes(cur))el.value=cur;};
+  fill('filter-mes',meses); fill('filter-depto',deptos);
+}
+
+function resetFilters(){
+  ['filter-mes','filter-depto','filter-prom'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sort-metric').value='impresiones';
+  applyFilters();
+}
+
+function applyFilters(){
+  const mes=document.getElementById('filter-mes').value;
+  const depto=document.getElementById('filter-depto').value;
+  const prom=document.getElementById('filter-prom').value;
+  const metric=document.getElementById('sort-metric').value;
+  filteredData=rawData.filter(r=>{
+    if(mes&&r.mes!==mes)return false;
+    if(depto&&r.departamento!==depto)return false;
+    if(prom==='Si'&&r.promocionada!=='Si')return false;
+    if(prom==='No'&&r.promocionada==='Si')return false;
+    return true;
+  });
+  renderKPIs(); renderMonthly(); renderChart(); renderTable(metric);
+}
+
+const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':Math.round(n).toLocaleString('es-ES');
+const fmtP=n=>n.toFixed(2)+'%';
+const sum=(a,k)=>a.reduce((t,r)=>t+(r[k]||0),0);
+const avg=(a,k)=>a.length?sum(a,k)/a.length:0;
+
+function renderKPIs(){
+  const d=filteredData;
+  if(!d.length){document.getElementById('kpi-grid').innerHTML='<div style="grid-column:span 5;text-align:center;padding:2rem;color:var(--muted);font-weight:700">Sin publicaciones para este filtro</div>';return;}
+  const ti=sum(d,'impresiones'),ta=sum(d,'alcance'),tin=sum(d,'interacciones'),tc=sum(d,'clics_web'),tasa=avg(d,'tasa_interaccion');
+  document.getElementById('kpi-grid').innerHTML=`
+    <div class="kpi-card c0"><div class="kpi-label">Impresiones</div><div class="kpi-value">${fmt(ti)}</div><div class="kpi-sub">${d.length} publicaciones</div></div>
+    <div class="kpi-card c1"><div class="kpi-label">Alcance</div><div class="kpi-value">${fmt(ta)}</div><div class="kpi-sub">${ti?fmtP(ta/ti*100):'—'} de impresiones</div></div>
+    <div class="kpi-card c2"><div class="kpi-label">Interacciones</div><div class="kpi-value">${fmt(tin)}</div><div class="kpi-sub">${fmt(sum(d,'megusta'))} me gusta</div></div>
+    <div class="kpi-card c3"><div class="kpi-label">Clics web</div><div class="kpi-value">${fmt(tc)}</div><div class="kpi-sub">${fmt(sum(d,'thruplay'))} thruplays</div></div>
+    <div class="kpi-card c4"><div class="kpi-label">Tasa interacción</div><div class="kpi-value">${fmtP(tasa)}</div><div class="kpi-sub">media del período</div></div>`;
+}
+
+function renderMonthly(){
+  const by={};
+  filteredData.forEach(r=>{if(!MES_ORDER.includes(r.mes))return;if(!by[r.mes])by[r.mes]={imp:0,alc:0,n:0};by[r.mes].imp+=r.impresiones;by[r.mes].alc+=r.alcance;by[r.mes].n++;});
+  const meses=Object.keys(by).sort((a,b)=>MES_ORDER.indexOf(a)-MES_ORDER.indexOf(b));
+  if(!meses.length){document.getElementById('monthly-grid').innerHTML='<div style="color:var(--muted);font-size:12px;font-weight:700">Sin datos</div>';return;}
+  const maxImp=Math.max(...meses.map(m=>by[m].imp));
+  document.getElementById('monthly-grid').innerHTML=meses.map(m=>`
+    <div class="month-card">
+      <div class="month-name">${m}</div>
+      <div class="month-imp">${fmt(by[m].imp)}</div>
+      <div class="month-sub">${fmt(by[m].alc)} alcance · ${by[m].n} posts</div>
+      <div class="month-bar"><div class="month-bar-fill" style="width:${maxImp?Math.round(by[m].imp/maxImp*100):0}%"></div></div>
+    </div>`).join('');
+}
+
+function renderChart(){
+  const by={};
+  filteredData.forEach(r=>{if(!MES_ORDER.includes(r.mes))return;if(!by[r.mes])by[r.mes]={imp:0,alc:0};by[r.mes].imp+=r.impresiones;by[r.mes].alc+=r.alcance;});
+  const labels=Object.keys(by).sort((a,b)=>MES_ORDER.indexOf(a)-MES_ORDER.indexOf(b));
+  const ctx=document.getElementById('monthChart').getContext('2d');
+  if(monthChart)monthChart.destroy();
+  monthChart=new Chart(ctx,{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'Impresiones',data:labels.map(m=>by[m].imp),backgroundColor:'#008C45',borderRadius:5,order:2},
+      {label:'Alcance',data:labels.map(m=>by[m].alc),backgroundColor:'rgba(0,140,69,0.18)',borderRadius:5,order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{labels:{color:'#777',font:{family:'Nunito Sans',size:12,weight:'700'},boxWidth:12}},
+        tooltip:{backgroundColor:'#fff',borderColor:'#e2e2de',borderWidth:1,titleColor:'#1a1a1a',bodyColor:'#777',titleFont:{family:'Nunito Sans',weight:'900'},bodyFont:{family:'Nunito Sans',weight:'600'},callbacks:{label:c=>' '+c.dataset.label+': '+fmt(c.raw)}}
+      },
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{color:'#aaa',font:{family:'Nunito Sans',size:11,weight:'700'}}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{color:'#aaa',font:{family:'Nunito Sans',size:11,weight:'700'},callback:v=>fmt(v)}}
+      }
+    }
+  });
+}
+
+const ML={impresiones:'Impresiones',alcance:'Alcance',interacciones:'Interacciones',megusta:'Me Gusta',comentarios:'Comentarios',compartidos:'Compartidos',clics_web:'Clics web',thruplay:'Thruplay',tasa_interaccion:'Tasa Int. %',tasa_alcance:'Tasa Alc. %'};
+
+function renderTable(metric){
+  const top=[...filteredData].sort((a,b)=>(b[metric]||0)-(a[metric]||0)).slice(0,10);
+  if(!top.length){document.getElementById('table-container').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-weight:700">Sin publicaciones para este filtro</div>';return;}
+  const isTasa=metric.startsWith('tasa_');
+  const fv=v=>isTasa?fmtP(v):fmt(v);
+  const cols=['impresiones','alcance','interacciones','clics_web'];
+  if(!cols.includes(metric))cols.splice(3,0,metric);
+  document.getElementById('table-container').innerHTML=`<table>
+    <thead><tr>
+      <th style="text-align:center">#</th>
+      <th>Publicación</th><th>Mes</th><th>Departamento</th>
+      ${cols.map(c=>`<th class="th-num${c===metric?' th-sorted':''}">${ML[c]||c}</th>`).join('')}
+    </tr></thead>
+    <tbody>${top.map((r,i)=>`<tr>
+      <td class="td-rank">${i+1}</td>
+      <td class="td-pub">${r.enlace?`<a href="${r.enlace}" target="_blank">${r.titulo}</a>`:`<span class="no-link">${r.titulo}</span>`}${r.tema?`<div class="pub-meta">${r.tema}</div>`:''}</td>
+      <td style="color:var(--muted);font-size:11px;font-weight:700">${r.mes||'—'}</td>
+      <td><span class="badge b-depto">${r.departamento||'—'}</span>${r.promocionada==='Si'?' <span class="badge b-prom">Prom.</span>':''}</td>
+      ${cols.map(c=>`<td class="td-num${c===metric?' hl':''}">${r[c]?fv(r[c]):'—'}</td>`).join('')}
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+
+loadData();
+</script>
+</body>
+</html>
