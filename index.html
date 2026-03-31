@@ -22,9 +22,9 @@
   --radius:8px;
 }
 body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;}
- 
+
 /* HEADER */
-.header{background:var(--surface);border-bottom:3px solid var(--green);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.header{background:var(--surface);border-bottom:3px solid var(--green);padding:0 4rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .logo-wrap{display:flex;align-items:center;gap:12px;}
 .logo-m{width:42px;height:42px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;letter-spacing:-1px;font-family:'Nunito Sans',sans-serif;}
 .logo-text{font-size:17px;font-weight:900;color:var(--green);letter-spacing:-0.3px;line-height:1.1;}
@@ -37,20 +37,20 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text)
 .spin{display:inline-block;}
 .spinning{animation:spin 1s linear infinite;}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
- 
+
 /* PAGE BANNER */
-.page-banner{background:var(--green);padding:1.5rem 2rem 1.5rem 3rem;display:flex;align-items:flex-end;justify-content:space-between;}
+.page-banner{background:var(--green);padding:1.5rem 4rem;display:flex;align-items:flex-end;justify-content:space-between;}
 .page-title{font-size:24px;font-weight:900;color:#fff;letter-spacing:-0.4px;line-height:1.1;}
 .page-title-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;}
 .page-meta{font-size:11px;color:rgba(255,255,255,0.5);font-weight:700;text-align:right;}
- 
+
 /* CONTENT */
-.content{padding:1.75rem 2rem;max-width:1200px;margin:0 auto;}
- 
+.content{padding:1.75rem 4rem;max-width:1200px;margin:0 auto;}
+
 /* SECTION LABEL */
 .section-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem;font-weight:800;display:flex;align-items:center;gap:8px;}
 .section-label::before{content:'';display:block;width:3px;height:14px;background:var(--green);border-radius:2px;}
- 
+
 /* FILTERS */
 .filters-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.5rem;display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
 .filter-group{display:flex;align-items:center;gap:8px;}
@@ -60,7 +60,7 @@ select:focus{border-color:var(--green);}
 .filter-div{width:1px;height:22px;background:var(--border);}
 .reset-link{font-size:11px;color:var(--green);font-weight:800;cursor:pointer;margin-left:auto;text-decoration:none;letter-spacing:0.03em;}
 .reset-link:hover{text-decoration:underline;}
- 
+
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:1.75rem;}
 .kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;border-top:3px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.04);}
@@ -73,11 +73,11 @@ select:focus{border-color:var(--green);}
 .kpi-value{font-size:27px;font-weight:900;color:var(--text);line-height:1;letter-spacing:-0.5px;}
 .kpi-card.c0 .kpi-value{color:var(--green);}
 .kpi-sub{font-size:11px;color:var(--muted2);margin-top:5px;font-weight:600;}
- 
+
 /* CHART */
 .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.75rem;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
 .chart-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:1.25rem;}
- 
+
 /* MONTHLY STRIP */
 .monthly-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:1.75rem;scrollbar-width:none;}
 .monthly-scroll::-webkit-scrollbar{display:none;}
@@ -88,7 +88,7 @@ select:focus{border-color:var(--green);}
 .month-sub{font-size:11px;color:var(--muted2);margin-top:3px;font-weight:600;}
 .month-bar{margin-top:9px;height:4px;background:var(--green-mid);border-radius:99px;overflow:hidden;}
 .month-bar-fill{height:4px;background:var(--green);border-radius:99px;}
- 
+
 /* TABLE */
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
 .table-top{padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:#fafaf8;}
@@ -118,7 +118,7 @@ td.td-num.hl{color:var(--green);}
 .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;font-weight:800;letter-spacing:0.03em;}
 .b-depto{background:var(--green-light);color:var(--green-dark);}
 .b-prom{background:#fff8e1;color:#e65100;border:1px solid #ffe082;}
- 
+
 /* STATES */
 .loading-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
 .dots{display:inline-flex;gap:6px;margin-bottom:10px;}
@@ -128,16 +128,16 @@ td.td-num.hl{color:var(--green);}
 @keyframes bounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
 .loading-state p{font-size:12px;font-weight:700;}
 .error-state{text-align:center;padding:2.5rem;color:#c62828;font-size:13px;font-weight:700;}
- 
+
 /* FOOTER */
 .footer{background:var(--green);padding:1.25rem 2rem;text-align:center;margin-top:2.5rem;}
 .footer p{font-size:11px;color:rgba(255,255,255,0.55);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;}
 .footer p span{color:#fff;}
- 
+
 @media(max-width:900px){
   .kpi-grid{grid-template-columns:repeat(3,1fr);}
-  .content{padding:1rem;}
-  .header,.page-banner{padding-left:1rem;padding-right:1rem;}
+  .content{padding:1rem 1.5rem;}
+  .header,.page-banner{padding-left:1.5rem;padding-right:1.5rem;}
 }
 @media(max-width:600px){
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
@@ -146,7 +146,7 @@ td.td-num.hl{color:var(--green);}
 </style>
 </head>
 <body>
- 
+
 <div class="header">
   <div class="logo-wrap">
     <a href="https://www.mercadona.es/" target="_blank">
@@ -156,11 +156,11 @@ td.td-num.hl{color:var(--green);}
   <div class="header-actions">
     <span class="platform-pill"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" style="width:13px;height:13px;vertical-align:middle;margin-right:5px;filter:invert(27%) sepia(89%) saturate(400%) hue-rotate(100deg) brightness(70%)"/>Facebook</span>
     <button class="refresh-btn" id="refresh-btn" onclick="loadData()">
-      <span class="spin" id="spin-icon">↻</span> Actualizar
+      <span class="spin" id="spin-icon">🔁</span> Actualizar
     </button>
   </div>
 </div>
- 
+
 <div class="page-banner">
   <div>
     <div class="page-title">Panel de Publicaciones</div>
@@ -168,9 +168,9 @@ td.td-num.hl{color:var(--green);}
   </div>
   <div class="page-meta" id="updated-tag">—</div>
 </div>
- 
+
 <div class="content">
- 
+
   <div class="filters-bar">
     <div class="filter-group">
       <span class="filter-label">Mes</span>
@@ -192,7 +192,7 @@ td.td-num.hl{color:var(--green);}
     </div>
     <a class="reset-link" onclick="resetFilters()">↺ Limpiar</a>
   </div>
- 
+
   <div class="section-label">Resumen · selección actual</div>
   <div class="kpi-grid" id="kpi-grid">
     <div style="grid-column:span 5" class="loading-state">
@@ -200,16 +200,16 @@ td.td-num.hl{color:var(--green);}
       <p>Conectando con Google Sheets…</p>
     </div>
   </div>
- 
+
   <div class="section-label">Evolución mensual · impresiones y alcance</div>
   <div class="chart-card">
     <div class="chart-title">Rendimiento por mes</div>
     <div style="position:relative;height:230px;"><canvas id="monthChart"></canvas></div>
   </div>
- 
+
   <div class="section-label">Cifras totales por mes</div>
   <div class="monthly-scroll" id="monthly-grid"></div>
- 
+
   <div class="section-label">Top publicaciones · ordenable por métrica</div>
   <div class="table-wrap">
     <div class="table-top">
@@ -234,16 +234,16 @@ td.td-num.hl{color:var(--green);}
       <div class="loading-state"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
     </div>
   </div>
- 
+
 </div>
- 
+
 <div class="footer"><p>Mdona<span> · </span>Social Stats PT<span> · </span>Datos en tiempo real desde Google Sheets</p></div>
- 
+
 <script>
 const WEBHOOK_URL = 'https://n8n-test.vikolab.com/webhook/2477d9ab-7640-4602-84e3-709a9ab4b9c9';
 const MES_ORDER = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 let rawData=[], filteredData=[], monthChart=null;
- 
+
 async function loadData(){
   const btn=document.getElementById('refresh-btn'), spin=document.getElementById('spin-icon');
   btn.disabled=true; spin.classList.add('spinning');
@@ -262,7 +262,7 @@ async function loadData(){
     btn.disabled=false; spin.classList.remove('spinning');
   }
 }
- 
+
 function setLoading(){
   const d=`<div class="loading-state"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><p>Cargando…</p></div>`;
   document.getElementById('kpi-grid').innerHTML=`<div style="grid-column:span 5">${d}</div>`;
@@ -274,7 +274,7 @@ function showErr(m){
   document.getElementById('kpi-grid').innerHTML=`<div style="grid-column:span 5">${e}</div>`;
   document.getElementById('table-container').innerHTML=e;
 }
- 
+
 function normalize(rows){
   return rows.map(r=>{
     const g=(...ks)=>{for(const k of ks){if(r[k]!=null&&r[k]!=='')return r[k];}return null;};
@@ -293,20 +293,20 @@ function normalize(rows){
     };
   }).filter(r=>r.titulo&&r.titulo!=='0'&&r.titulo!=='undefined');
 }
- 
+
 function populateFilters(){
   const meses=[...new Set(rawData.map(r=>r.mes).filter(m=>MES_ORDER.includes(m)))].sort((a,b)=>MES_ORDER.indexOf(a)-MES_ORDER.indexOf(b));
   const deptos=[...new Set(rawData.map(r=>r.departamento).filter(Boolean))].sort();
   const fill=(id,opts)=>{const el=document.getElementById(id),cur=el.value;el.innerHTML=el.options[0].outerHTML+opts.map(o=>`<option value="${o}">${o}</option>`).join('');if(opts.includes(cur))el.value=cur;};
   fill('filter-mes',meses); fill('filter-depto',deptos);
 }
- 
+
 function resetFilters(){
   ['filter-mes','filter-depto','filter-prom'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('sort-metric').value='impresiones';
   applyFilters();
 }
- 
+
 function applyFilters(){
   const mes=document.getElementById('filter-mes').value;
   const depto=document.getElementById('filter-depto').value;
@@ -321,12 +321,12 @@ function applyFilters(){
   });
   renderKPIs(); renderMonthly(); renderChart(); renderTable(metric);
 }
- 
+
 const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':Math.round(n).toLocaleString('es-ES');
 const fmtP=n=>n.toFixed(2)+'%';
 const sum=(a,k)=>a.reduce((t,r)=>t+(r[k]||0),0);
 const avg=(a,k)=>a.length?sum(a,k)/a.length:0;
- 
+
 function renderKPIs(){
   const d=filteredData;
   if(!d.length){document.getElementById('kpi-grid').innerHTML='<div style="grid-column:span 5;text-align:center;padding:2rem;color:var(--muted);font-weight:700">Sin publicaciones para este filtro</div>';return;}
@@ -338,7 +338,7 @@ function renderKPIs(){
     <div class="kpi-card c3"><div class="kpi-label">Clics web</div><div class="kpi-value">${fmt(tc)}</div><div class="kpi-sub">${fmt(sum(d,'thruplay'))} thruplays</div></div>
     <div class="kpi-card c4"><div class="kpi-label">Tasa interacción</div><div class="kpi-value">${fmtP(tasa)}</div><div class="kpi-sub">media del período</div></div>`;
 }
- 
+
 function renderMonthly(){
   const by={};
   filteredData.forEach(r=>{if(!MES_ORDER.includes(r.mes))return;if(!by[r.mes])by[r.mes]={imp:0,alc:0,n:0};by[r.mes].imp+=r.impresiones;by[r.mes].alc+=r.alcance;by[r.mes].n++;});
@@ -353,7 +353,7 @@ function renderMonthly(){
       <div class="month-bar"><div class="month-bar-fill" style="width:${maxImp?Math.round(by[m].imp/maxImp*100):0}%"></div></div>
     </div>`).join('');
 }
- 
+
 function renderChart(){
   const by={};
   filteredData.forEach(r=>{if(!MES_ORDER.includes(r.mes))return;if(!by[r.mes])by[r.mes]={imp:0,alc:0};by[r.mes].imp+=r.impresiones;by[r.mes].alc+=r.alcance;});
@@ -378,9 +378,9 @@ function renderChart(){
     }
   });
 }
- 
+
 const ML={impresiones:'Impresiones',alcance:'Alcance',interacciones:'Interacciones',megusta:'Me Gusta',comentarios:'Comentarios',compartidos:'Compartidos',clics_web:'Clics web',thruplay:'Thruplay',tasa_interaccion:'Tasa Int. %',tasa_alcance:'Tasa Alc. %'};
- 
+
 function renderTable(metric){
   const top=[...filteredData].sort((a,b)=>(b[metric]||0)-(a[metric]||0)).slice(0,10);
   if(!top.length){document.getElementById('table-container').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-weight:700">Sin publicaciones para este filtro</div>';return;}
@@ -403,7 +403,7 @@ function renderTable(metric){
     </tr>`).join('')}</tbody>
   </table>`;
 }
- 
+
 loadData();
 </script>
 </body>
